@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Salehe (Said) Salehe — Telecommunications Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#050914;
+  --cyan:#5ce8ff;
+  --violet:#8b7bff;
+  --magenta:#ff7bd5;
+  --text:#eaf1ff;
+  --text-dim:rgba(234,241,255,.62);
+  --glass:rgba(255,255,255,.06);
+  --glass-strong:rgba(255,255,255,.12);
+  --stroke:rgba(255,255,255,.16);
+  --stroke-bright:rgba(255,255,255,.32);
+  --radius:26px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--ink);color:var(--text);overflow-x:hidden;line-height:1.6}
+::selection{background:rgba(92,232,255,.35)}
+svg.ic{width:1em;height:1em;flex:none;vertical-align:-.12em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+svg.ic.fill{fill:currentColor;stroke:none}
+
+/* ---------- liquid background ---------- */
+.bg{position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(1200px 800px at 85% -10%, #14224d 0%, transparent 60%),
+  radial-gradient(1000px 700px at -10% 40%, #131036 0%, transparent 60%),
+  var(--ink);}
+.blob{position:fixed;border-radius:50%;filter:blur(90px);opacity:.5;z-index:-1;will-change:transform}
+.blob.b1{width:520px;height:520px;background:radial-gradient(circle at 30% 30%,#1fb6ff,transparent 70%);top:-140px;left:-120px;animation:drift1 26s ease-in-out infinite alternate}
+.blob.b2{width:460px;height:460px;background:radial-gradient(circle at 60% 40%,#7b5cff,transparent 70%);top:35%;right:-160px;animation:drift2 32s ease-in-out infinite alternate}
+.blob.b3{width:420px;height:420px;background:radial-gradient(circle at 50% 50%,#ff5cc3,transparent 70%);bottom:-160px;left:28%;animation:drift3 38s ease-in-out infinite alternate;opacity:.35}
+@keyframes drift1{from{transform:translate(0,0) scale(1)}to{transform:translate(90px,120px) scale(1.15)}}
+@keyframes drift2{from{transform:translate(0,0) scale(1.05)}to{transform:translate(-120px,-80px) scale(.9)}}
+@keyframes drift3{from{transform:translate(0,0)}to{transform:translate(140px,-90px) scale(1.2)}}
+.grain{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E")}
+
+/* ---------- glass material (shared) ---------- */
+.glassy{
+  background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.03) 45%,rgba(255,255,255,.07));
+  backdrop-filter:blur(26px) saturate(180%) brightness(1.08);
+  -webkit-backdrop-filter:blur(26px) saturate(180%) brightness(1.08);
+  border:1px solid var(--stroke);
+  box-shadow:
+    0 24px 60px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.28),
+    inset 0 -1px 0 rgba(255,255,255,.06),
+    inset 1px 0 0 rgba(255,255,255,.08),
+    inset -1px 0 0 rgba(255,255,255,.04);
+  overflow:hidden;
+}
+nav.glassy{position:fixed}
+.glassy::after{ /* top specular strip like real glass catching light */
+  content:"";position:absolute;left:8%;right:8%;top:0;height:1.5px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);
+  pointer-events:none;
+}
+
+/* ---------- nav (liquid glass dock) ---------- */
+nav{
+  position:fixed;top:14px;left:50%;transform:translateX(-50%);
+  display:flex;flex-wrap:wrap;justify-content:center;gap:2px;padding:7px;z-index:50;border-radius:30px;
+  width:max-content;max-width:calc(100vw - 16px);
+}
+nav .indicator{
+  position:absolute;top:7px;left:0;width:0;height:0;border-radius:999px;z-index:0;
+  background:linear-gradient(160deg,rgba(255,255,255,.22),rgba(255,255,255,.08));
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid var(--stroke-bright);
+  box-shadow:0 4px 18px rgba(92,232,255,.18), inset 0 1px 0 rgba(255,255,255,.4);
+  transition:left .55s cubic-bezier(.3,1.2,.3,1), top .55s cubic-bezier(.3,1.2,.3,1), width .55s cubic-bezier(.3,1.2,.3,1), height .55s cubic-bezier(.3,1.2,.3,1), opacity .3s;
+  opacity:0;
+}
+nav a{
+  position:relative;z-index:1;display:inline-flex;align-items:center;gap:7px;
+  color:var(--text-dim);text-decoration:none;font-size:.82rem;font-weight:500;
+  padding:9px 15px;border-radius:999px;transition:color .3s, transform .3s;white-space:nowrap;
+}
+nav a svg.ic{font-size:1.05rem}
+nav a:hover{color:#fff}
+nav a.active{color:#fff;text-shadow:0 0 14px rgba(92,232,255,.6)}
+nav a:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+@media(max-width:760px){nav a{font-size:.72rem;padding:7px 10px;gap:5px}nav a svg.ic{font-size:.95rem}}
+@media(max-width:420px){nav a{font-size:.66rem;padding:6px 8px}}
+
+.wrap{max-width:1060px;margin:0 auto;padding:0 22px}
+
+/* ---------- hero ---------- */
+header{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;padding:130px 0 80px}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:.78rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);display:inline-flex;align-items:center;gap:10px;margin-bottom:22px}
+.eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:pulse 2.2s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.5}}
+h1{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(1.4rem,6.6vw,4.4rem);line-height:1.08;letter-spacing:-.02em;white-space:nowrap}
+h1 .grad{background:linear-gradient(92deg,var(--cyan) 0%,var(--violet) 55%,var(--magenta) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+h1 .paren{font-weight:300;color:var(--text-dim);-webkit-text-fill-color:var(--text-dim)}
+.tagline{font-size:clamp(1rem,2.2vw,1.25rem);color:var(--text-dim);max-width:620px;margin:22px auto 0}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px;justify-content:center}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:999px;
+  font-weight:600;font-size:.92rem;text-decoration:none;color:var(--text);
+  transition:.35s cubic-bezier(.2,.9,.3,1.2);
+  background:linear-gradient(160deg,rgba(255,255,255,.12),rgba(255,255,255,.04));
+  backdrop-filter:blur(18px) saturate(170%);-webkit-backdrop-filter:blur(18px) saturate(170%);
+  border:1px solid var(--stroke);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.3), inset 0 -1px 0 rgba(255,255,255,.05), 0 6px 20px rgba(0,0,0,.25);
+}
+.btn svg.ic{font-size:1.1rem}
+.btn:hover{border-color:var(--stroke-bright);background:linear-gradient(160deg,rgba(255,255,255,.18),rgba(255,255,255,.07));
+  box-shadow:0 14px 34px rgba(92,232,255,.18), inset 0 1px 0 rgba(255,255,255,.42)}
+.btn:active{background:linear-gradient(160deg,rgba(255,255,255,.22),rgba(255,255,255,.1))}
+.btn.primary{background:linear-gradient(120deg,rgba(92,232,255,.24),rgba(139,123,255,.24));border-color:rgba(92,232,255,.45)}
+
+/* fiber pulse line */
+.fiber{position:absolute;left:0;right:0;bottom:12vh;height:120px;pointer-events:none;overflow:visible}
+.fiber path{fill:none;stroke:rgba(255,255,255,.10);stroke-width:1.5}
+.fiber .light{stroke:url(#fibgrad);stroke-width:2.5;stroke-dasharray:90 1200;animation:travel 6s linear infinite;filter:drop-shadow(0 0 8px rgba(92,232,255,.9))}
+@keyframes travel{to{stroke-dashoffset:-1290}}
+
+/* ---------- sections ---------- */
+section{padding:72px 0;scroll-margin-top:90px}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:34px}
+.sec-head .sic{
+  width:44px;height:44px;border-radius:14px;display:grid;place-items:center;font-size:1.25rem;color:var(--cyan);
+  background:linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,.04));
+  border:1px solid var(--stroke);box-shadow:inset 0 1px 0 rgba(255,255,255,.3), 0 6px 16px rgba(0,0,0,.3);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
+.sec-head h2{font-family:'Sora',sans-serif;font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:700;letter-spacing:-.01em}
+.sec-head .tag{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--violet);letter-spacing:.18em;text-transform:uppercase;display:block}
+
+.card{
+  background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.03) 45%,rgba(255,255,255,.06));
+  backdrop-filter:blur(26px) saturate(180%) brightness(1.06);
+  -webkit-backdrop-filter:blur(26px) saturate(180%) brightness(1.06);
+  border:1px solid var(--stroke);border-radius:var(--radius);
+  box-shadow:0 24px 60px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.26), inset 0 -1px 0 rgba(255,255,255,.05);
+  padding:32px;position:relative;overflow:hidden;
+  transition:transform .45s cubic-bezier(.2,.9,.3,1.1), box-shadow .45s, border-color .45s;
+}
+.card::after{content:"";position:absolute;left:8%;right:8%;top:0;height:1.5px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);pointer-events:none}
+.card::before{content:"";position:absolute;inset:-40% -60%;
+  background:linear-gradient(115deg,transparent 42%,rgba(255,255,255,.12) 50%,transparent 58%);
+  transform:translateX(-70%);transition:transform 1.1s ease;pointer-events:none}
+.card:hover{transform:translateY(-5px);border-color:rgba(92,232,255,.35);
+  box-shadow:0 30px 70px rgba(0,0,0,.5),0 0 44px rgba(92,232,255,.1),inset 0 1px 0 rgba(255,255,255,.34)}
+.card:hover::before{transform:translateX(70%)}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media(max-width:820px){.grid2,.grid3{grid-template-columns:1fr}}
+
+/* about */
+.about p{color:var(--text-dim);font-size:1.02rem}
+.about strong{color:var(--text)}
+.quick{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.chip{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:'JetBrains Mono',monospace;font-size:.74rem;padding:8px 14px;border-radius:999px;
+  border:1px solid var(--stroke);background:rgba(255,255,255,.05);color:var(--text-dim);transition:.3s;
+}
+.chip svg.ic{color:var(--cyan)}
+.chip:hover{border-color:var(--cyan);color:#fff;box-shadow:0 0 16px rgba(92,232,255,.2);transform:translateY(-2px)}
+
+/* experience timeline */
+.timeline{position:relative;padding-left:34px}
+.timeline::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:2px;
+  background:linear-gradient(var(--cyan),var(--violet),var(--magenta));opacity:.5;border-radius:2px}
+.t-item{position:relative;margin-bottom:26px}
+.t-item::before{content:"";position:absolute;left:-32px;top:10px;width:14px;height:14px;border-radius:50%;
+  background:var(--ink);border:3px solid var(--cyan);box-shadow:0 0 14px rgba(92,232,255,.7)}
+.t-item:nth-child(2)::before{border-color:var(--violet);box-shadow:0 0 14px rgba(139,123,255,.7)}
+.t-item:nth-child(3)::before{border-color:var(--magenta);box-shadow:0 0 14px rgba(255,123,213,.7)}
+.t-item .card{padding:26px 28px}
+.role{font-family:'Sora',sans-serif;font-weight:700;font-size:1.08rem;display:flex;align-items:center;gap:9px}
+.role svg.ic{color:var(--cyan);font-size:1rem}
+.org{color:var(--cyan);font-size:.9rem;font-weight:500;margin-top:2px}
+.period{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--text-dim);margin-top:2px;letter-spacing:.08em}
+.t-item ul{margin-top:14px;padding-left:18px;color:var(--text-dim);font-size:.93rem}
+.t-item li{margin-bottom:7px}
+.t-item li::marker{color:var(--violet)}
+
+/* education + projects */
+.edu .card,.proj .card{height:100%}
+.edu h3,.proj h3{font-family:'Sora',sans-serif;font-size:1.02rem;font-weight:700;margin-bottom:6px;display:flex;gap:9px;align-items:flex-start}
+.edu h3 svg.ic,.proj h3 svg.ic{color:var(--violet);margin-top:.2em}
+.edu .sub,.proj .sub{color:var(--cyan);font-size:.86rem;font-weight:500}
+.edu .yr,.proj .yr{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--text-dim);margin-top:4px;letter-spacing:.08em}
+.proj p{color:var(--text-dim);font-size:.9rem;margin-top:12px}
+
+/* skills */
+.skill-row{margin-bottom:20px}
+.skill-row .lab{display:flex;justify-content:space-between;font-size:.88rem;margin-bottom:8px}
+.skill-row .lab span:first-child{display:inline-flex;align-items:center;gap:8px}
+.skill-row .lab svg.ic{color:var(--cyan);font-size:.95rem}
+.skill-row .lab span:last-child{font-family:'JetBrains Mono',monospace;color:var(--text-dim);font-size:.76rem}
+.bar{height:9px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+.bar i{display:block;height:100%;width:0;border-radius:999px;
+  background:linear-gradient(90deg,var(--cyan),var(--violet));
+  box-shadow:0 0 14px rgba(92,232,255,.5);transition:width 1.4s cubic-bezier(.2,.8,.2,1)}
+.langs{display:flex;gap:26px;margin-top:8px;flex-wrap:wrap}
+.ring{--p:90;width:110px;height:110px;border-radius:50%;display:grid;place-items:center;position:relative;
+  background:conic-gradient(var(--cyan) calc(var(--p)*1%),rgba(255,255,255,.09) 0)}
+.ring::before{content:"";position:absolute;inset:9px;border-radius:50%;background:rgba(10,16,34,.9);border:1px solid var(--stroke)}
+.ring b{position:relative;font-family:'Sora',sans-serif;font-size:1.05rem}
+.ring-wrap{text-align:center}
+.ring-wrap p{margin-top:10px;font-size:.85rem;color:var(--text-dim)}
+
+/* referees */
+.ref .card{display:flex;flex-direction:column;gap:6px}
+.ref .avatar{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;margin-bottom:10px;font-size:1.4rem;color:var(--cyan);
+  background:linear-gradient(160deg,rgba(92,232,255,.18),rgba(139,123,255,.12));
+  border:1px solid var(--stroke-bright);box-shadow:inset 0 1px 0 rgba(255,255,255,.35), 0 6px 16px rgba(0,0,0,.3)}
+.ref h3{font-family:'Sora',sans-serif;font-size:1.05rem;font-weight:700}
+.ref .pos{color:var(--violet);font-size:.88rem;font-weight:500}
+.ref .org2{color:var(--text-dim);font-size:.85rem}
+.ref a{color:var(--cyan);text-decoration:none;font-size:.85rem;word-break:break-all;display:inline-flex;align-items:center;gap:6px}
+.ref a:hover{text-decoration:underline}
+.ref .ph{font-size:.85rem;color:var(--text-dim);display:inline-flex;align-items:center;gap:6px}
+.ref .ph svg.ic{color:var(--violet)}
+
+/* contact / footer */
+footer{padding:90px 0 60px;text-align:center;scroll-margin-top:90px}
+footer .card{max-width:680px;margin:0 auto;padding:52px 34px}
+footer h2{font-family:'Sora',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;letter-spacing:-.01em}
+footer p{color:var(--text-dim);margin:14px auto 30px;max-width:460px}
+.credit{margin-top:44px;font-family:'JetBrains Mono',monospace;font-size:.7rem;color:rgba(234,241,255,.35);letter-spacing:.12em}
+
+/* reveal on scroll */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:640px){
+  nav{max-width:calc(100% - 20px)}
+  .card{padding:24px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  .bar i{width:var(--w)!important}
+}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+<div class="grain"></div>
+
+<!-- SVG icon set -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></symbol>
+    <symbol id="i-brief" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7"/><path d="M3 12h18"/></symbol>
+    <symbol id="i-grad" viewBox="0 0 24 24"><path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5"/><path d="M22 9v5"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></symbol>
+    <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M5 15c-1.5 1.5-2 5-2 5s3.5-.5 5-2"/><path d="M12 15 9 12c1-4 4-8 10.5-9.5C21 9 17 12 13 13z"/><circle cx="14.5" cy="9.5" r="1.6"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.5 3-5.5 6.5-5.5s6.5 2 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8"/><path d="M18.5 14.9c2 .8 3 2.4 3 5.1"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3 7 9 6 9-6"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6 3h4l1.5 5L9 10a12 12 0 0 0 5 5l2-2.5L21 14v4a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-11a7 7 0 1 0-14 0c0 4.9 7 11 7 11z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.8 2.6 4 5.6 4 9s-1.2 6.4-4 9c-2.8-2.6-4-5.6-4-9s1.2-6.4 4-9z"/></symbol>
+    <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="9" r="5.5"/><path d="m8.8 13.6-1.8 7 5-2.8 5 2.8-1.8-7"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M5.6 5.6l2.8 2.8M15.6 15.6l2.8 2.8M18.4 5.6l-2.8 2.8M8.4 15.6l-2.8 2.8"/></symbol>
+    <symbol id="i-net" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.2"/><circle cx="5" cy="19" r="2.2"/><circle cx="19" cy="19" r="2.2"/><path d="M12 7.2 6 17M12 7.2 18 17M7.2 19h9.6"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V4"/><path d="M4 20h16"/><path d="M8 16v-5M12 16V8M16 16v-3M20 16V6"/></symbol>
+    <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5"/><path d="m13 4-2 16"/></symbol>
+    <symbol id="i-pen" viewBox="0 0 24 24"><path d="m14 5 5 5L8 21H3v-5z"/><path d="m12.5 6.5 5 5"/></symbol>
+    <symbol id="i-lead" viewBox="0 0 24 24"><path d="M12 3v11"/><path d="m7 9 5-5 5 5"/><path d="M4 21h16"/><path d="M6 17h12"/></symbol>
+    <symbol id="i-office" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M12 .8A11.3 11.3 0 0 0 .7 12.1c0 5 3.2 9.2 7.7 10.7.6.1.8-.2.8-.5v-2c-3.1.7-3.8-1.3-3.8-1.3-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.7 2.7 1.2 3.3.9.1-.7.4-1.2.7-1.5-2.5-.3-5.2-1.3-5.2-5.6 0-1.2.4-2.2 1.2-3-.2-.3-.5-1.5.1-3 0 0 1-.3 3.1 1.1a10.8 10.8 0 0 1 5.7 0C16.9 5.3 17.8 5.6 17.8 5.6c.6 1.6.2 2.8.1 3 .7.9 1.2 1.9 1.2 3.1 0 4.4-2.7 5.3-5.2 5.6.4.4.8 1 .8 2.1v3.1c0 .3.2.7.8.5a11.3 11.3 0 0 0 7.6-10.7A11.3 11.3 0 0 0 12 .8z"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M20.4 3H3.6A.6.6 0 0 0 3 3.6v16.8a.6.6 0 0 0 .6.6h16.8a.6.6 0 0 0 .6-.6V3.6a.6.6 0 0 0-.6-.6zM8.3 18.6H5.7V9.9h2.7v8.7zM7 8.7a1.6 1.6 0 1 1 0-3.2 1.6 1.6 0 0 1 0 3.2zm11.6 9.9h-2.7v-4.2c0-1 0-2.3-1.4-2.3s-1.6 1.1-1.6 2.2v4.3h-2.7V9.9h2.6v1.2h.1c.4-.7 1.2-1.4 2.6-1.4 2.7 0 3.2 1.8 3.2 4.1v4.8z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.7 2.7L16.5 9"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><path d="m12 12 5-5"/><path d="M17 7V4.5M17 7h2.5"/></symbol>
+    <symbol id="i-gamepad" viewBox="0 0 24 24"><rect x="2.5" y="7.5" width="19" height="10" rx="5"/><path d="M8 10.5v4M6 12.5h4"/><circle cx="16" cy="11" r="1" fill="currentColor" stroke="none"/><circle cx="18.3" cy="13.5" r="1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5.5L20 3v12.5"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/></symbol>
+  </defs>
+</svg>
+
+<nav class="glassy" aria-label="Sections">
+  <span class="indicator" aria-hidden="true"></span>
+  <a href="#home" class="active"><svg class="ic"><use href="#i-home"/></svg><span class="lbl">Home</span></a>
+  <a href="#about"><svg class="ic"><use href="#i-user"/></svg><span class="lbl">About</span></a>
+  <a href="#experience"><svg class="ic"><use href="#i-brief"/></svg><span class="lbl">Work</span></a>
+  <a href="#education"><svg class="ic"><use href="#i-grad"/></svg><span class="lbl">Education</span></a>
+  <a href="#skills"><svg class="ic"><use href="#i-bolt"/></svg><span class="lbl">Skills</span></a>
+  <a href="#projects"><svg class="ic"><use href="#i-rocket"/></svg><span class="lbl">Projects</span></a>
+  <a href="#referees"><svg class="ic"><use href="#i-users"/></svg><span class="lbl">Referees</span></a>
+  <a href="#contact"><svg class="ic"><use href="#i-mail"/></svg><span class="lbl">Contact</span></a>
+</nav>
+
+<header id="home" class="wrap">
+  <span class="eyebrow"><span class="dot"></span>Telecommunications Engineer · Dar es Salaam, TZ</span>
+  <h1>Salehe <span class="paren">(Said)</span> <span class="grad">Salehe</span></h1>
+  <p class="tagline">I design, deploy and maintain telecommunications networks — turning data, fiber and service operations into seamless customer experiences.</p>
+  <div class="hero-actions">
+    <a class="btn primary" href="mailto:kijuamkwayu@gmail.com"><svg class="ic"><use href="#i-mail"/></svg>Email me</a>
+    <a class="btn" href="tel:+255715123070"><svg class="ic"><use href="#i-phone"/></svg>+255 715 123 070</a>
+    <a class="btn" href="https://github.com/salehesaid" target="_blank" rel="noopener"><svg class="ic"><use href="#i-github"/></svg>GitHub</a>
+    <a class="btn" href="https://www.linkedin.com/in/SaleheSaidSalehe" target="_blank" rel="noopener"><svg class="ic"><use href="#i-linkedin"/></svg>LinkedIn</a>
+  </div>
+  <svg class="fiber" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="fibgrad" x1="0" x2="1">
+        <stop offset="0" stop-color="#5ce8ff"/><stop offset=".5" stop-color="#8b7bff"/><stop offset="1" stop-color="#ff7bd5"/>
+      </linearGradient>
+    </defs>
+    <path d="M0,70 C180,20 320,110 500,60 C680,10 820,105 1000,55 C1090,32 1150,50 1200,45"/>
+    <path class="light" d="M0,70 C180,20 320,110 500,60 C680,10 820,105 1000,55 C1090,32 1150,50 1200,45"/>
+  </svg>
+</header>
+
+<main class="wrap">
+
+<section id="about" class="reveal">
+  <div class="sec-head">
+    <span class="sic"><svg class="ic"><use href="#i-user"/></svg></span>
+    <div><span class="tag">01 · Profile</span><h2>About me</h2></div>
+  </div>
+  <div class="card about">
+    <p>Flexible, hardworking and fast-learning engineer with a <strong>BSc in Telecommunication Engineering</strong> from the University of Dodoma. I bring hands-on experience in <strong>network design, deployment and maintenance</strong>, and I currently coordinate service delivery operations end-to-end — from subscriber contact to work-order completion — while using <strong>data analysis</strong> to continuously improve the customer journey.</p>
+    <p style="margin-top:14px">My goal: contribute to an organisation's growth by delivering innovative solutions, optimising network performance and providing exceptional customer service.</p>
+    <div class="quick">
+      <span class="chip"><svg class="ic"><use href="#i-pin"/></svg>Kigamboni, Dar es Salaam</span>
+      <span class="chip"><svg class="ic"><use href="#i-globe"/></svg>English · Swahili</span>
+      <span class="chip"><svg class="ic"><use href="#i-award"/></svg>JKT Certificate</span>
+      <span class="chip"><svg class="ic"><use href="#i-check"/></svg>Punctuality & work ethics</span>
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="reveal">
+  <div class="sec-head">
+    <span class="sic"><svg class="ic"><use href="#i-brief"/></svg></span>
+    <div><span class="tag">02 · Journey</span><h2>Experience</h2></div>
+  </div>
+  <div class="timeline">
+    <div class="t-item reveal">
+      <div class="card">
+        <div class="role"><svg class="ic"><use href="#i-target"/></svg>Service Delivery Dispatch</div>
+        <div class="org">Service Delivery Operations</div>
+        <div class="period">2023 — PRESENT</div>
+        <ul>
+          <li>Coordinate work orders end-to-end, from subscriber contact to completion, within SLAs.</li>
+          <li>Triage call-center work orders and dispatch them to the right technicians.</li>
+          <li>Quality-review all completed work and enforce safety & operational procedures.</li>
+          <li>Compile daily, weekly and monthly performance reports with analytics and improvement actions.</li>
+          <li>Expedite network-outage reporting and resolution to minimise service disruption.</li>
+          <li>Analyse the full customer journey — installation to support — and implement data-driven improvement strategies.</li>
+          <li>Align all customer-facing departments for a consistent, informed customer experience.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="t-item reveal">
+      <div class="card">
+        <div class="role"><svg class="ic"><use href="#i-spark"/></svg>Digital Platform & Team Member</div>
+        <div class="org">AIESEC in UDOM</div>
+        <div class="period">2019 — 2020</div>
+        <ul>
+          <li>Managed digital platforms and shared creative content to grow the customer base.</li>
+          <li>Organised training materials and user manuals for customer & team onboarding.</li>
+          <li>Worked effectively both in teams and independently, joining extracurriculars to grow skills.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="t-item reveal">
+      <div class="card">
+        <div class="role"><svg class="ic"><use href="#i-net"/></svg>Network & Technical Trainee</div>
+        <div class="org">University of Dodoma</div>
+        <div class="period">2016 — 2019</div>
+        <ul>
+          <li>Documented client network details ahead of communication-system implementations.</li>
+          <li>Configured routers and switches; managed LAN and wireless networks.</li>
+          <li>Assisted with administrative tasks and completed telecom industry training courses.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education" class="reveal edu">
+  <div class="sec-head">
+    <span class="sic"><svg class="ic"><use href="#i-grad"/></svg></span>
+    <div><span class="tag">03 · Foundation</span><h2>Education</h2></div>
+  </div>
+  <div class="grid2">
+    <div class="card reveal">
+      <h3><svg class="ic"><use href="#i-grad"/></svg>BSc. Telecommunication Engineering</h3>
+      <div class="sub">University of Dodoma</div>
+      <div class="yr">2016 — 2020</div>
+    </div>
+    <div class="card reveal">
+      <h3><svg class="ic"><use href="#i-office"/></svg>Advanced Certificate of Secondary Education</h3>
+      <div class="sub">Sengerema High School</div>
+      <div class="yr">2013 — 2016</div>
+    </div>
+    <div class="card reveal">
+      <h3><svg class="ic"><use href="#i-office"/></svg>Ordinary Certificate of Secondary Education</h3>
+      <div class="sub">Lemara Secondary School</div>
+      <div class="yr">2010 — 2013</div>
+    </div>
+    <div class="card reveal">
+      <h3><svg class="ic"><use href="#i-office"/></svg>Primary Level Certificate</h3>
+      <div class="sub">Engira Primary School</div>
+      <div class="yr">2002 — 2009</div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="reveal">
+  <div class="sec-head">
+    <span class="sic"><svg class="ic"><use href="#i-bolt"/></svg></span>
+    <div><span class="tag">04 · Toolkit</span><h2>Skills & Languages</h2></div>
+  </div>
+  <div class="grid2">
+    <div class="card reveal">
+      <div class="skill-row"><div class="lab"><span><svg class="ic"><use href="#i-net"/></svg>Network Design & Maintenance</span><span>95%</span></div><div class="bar"><i data-w="95%"></i></div></div>
+      <div class="skill-row"><div class="lab"><span><svg class="ic"><use href="#i-chart"/></svg>Data Analysis</span><span>90%</span></div><div class="bar"><i data-w="90%"></i></div></div>
+      <div class="skill-row"><div class="lab"><span><svg class="ic"><use href="#i-office"/></svg>Microsoft Office</span><span>92%</span></div><div class="bar"><i data-w="92%"></i></div></div>
+      <div class="skill-row"><div class="lab"><span><svg class="ic"><use href="#i-code"/></svg>Programming</span><span>80%</span></div><div class="bar"><i data-w="80%"></i></div></div>
+      <div class="skill-row"><div class="lab"><span><svg class="ic"><use href="#i-pen"/></svg>Graphic Design</span><span>78%</span></div><div class="bar"><i data-w="78%"></i></div></div>
+      <div class="skill-row" style="margin-bottom:0"><div class="lab"><span><svg class="ic"><use href="#i-lead"/></svg>Leadership & Multitasking</span><span>88%</span></div><div class="bar"><i data-w="88%"></i></div></div>
+    </div>
+    <div class="card reveal" style="display:flex;flex-direction:column;justify-content:center">
+      <div class="langs" style="justify-content:center">
+        <div class="ring-wrap"><div class="ring" style="--p:95"><b>95%</b></div><p>English</p></div>
+        <div class="ring-wrap"><div class="ring" style="--p:100;background:conic-gradient(var(--violet) 100%,rgba(255,255,255,.09) 0)"><b>100%</b></div><p>Swahili</p></div>
+      </div>
+      <p style="text-align:center;color:var(--text-dim);font-size:.85rem;margin-top:22px">Excellent spoken & written English · Native-level Swahili</p>
+      <div class="quick" style="justify-content:center;margin-top:18px">
+        <span class="chip"><svg class="ic"><use href="#i-music"/></svg>Music</span>
+        <span class="chip"><svg class="ic"><use href="#i-gamepad"/></svg>Video games</span>
+        <span class="chip"><svg class="ic"><use href="#i-globe"/></svg>Internet & movies</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="reveal proj">
+  <div class="sec-head">
+    <span class="sic"><svg class="ic"><use href="#i-rocket"/></svg></span>
+    <div><span class="tag">05 · Selected work</span><h2>Projects</h2></div>
+  </div>
+  <div class="grid2" style="margin-bottom:22px">
+    <div class="card reveal">
+      <div style="margin-bottom:12px">
+        <span class="chip" style="border-color:rgba(92,232,255,.5);color:var(--cyan)"><svg class="ic"><use href="#i-spark"/></svg>Currently working on</span>
+      </div>
+      <h3><svg class="ic"><use href="#i-net"/></svg>Telecom Managed Services</h3>
+      <div class="yr">2026 · v1.0.0 · Full-stack platform</div>
+      <p>Centralized telecom / FTTx operations platform: customer management, full work-order lifecycle, live dispatch board, contractor management with KPI dashboards, SLA tracking, 20+ report types with Excel export, role-based dashboards for 16 roles, immutable audit trail, and a companion iOS/Android app for field technicians and supervisors.</p>
+      <div class="quick" style="margin-top:14px">
+        <span class="chip">FastAPI</span><span class="chip">PostgreSQL</span><span class="chip">React + TS</span><span class="chip">React Native</span><span class="chip">Docker</span>
+      </div>
+      <a class="btn" style="margin-top:18px;padding:10px 18px;font-size:.84rem" href="https://github.com/salehesaid/Telecom-Managed-Services" target="_blank" rel="noopener"><svg class="ic"><use href="#i-github"/></svg>View on GitHub</a>
+    </div>
+    <div class="card reveal">
+      <div style="margin-bottom:12px">
+        <span class="chip" style="border-color:rgba(139,123,255,.5);color:var(--violet)"><svg class="ic"><use href="#i-spark"/></svg>Currently working on</span>
+      </div>
+      <h3><svg class="ic"><use href="#i-chart"/></svg>Wananchi Cable Tanzania — Data Analysis System</h3>
+      <div class="yr">2026 · v1.1 · Analytics hub</div>
+      <p>Centralized analytics hub for B2C (Zuku Fiber) and B2B (SimbaNET) operations: SLA performance, CRM complaints, maintenance incidents, quality control, root-cause analysis and B2B service delivery — interactive dashboards with global filters, weekly KPIs and an automated Python data-embedding pipeline from Excel/PPTX sources.</p>
+      <div class="quick" style="margin-top:14px">
+        <span class="chip">Chart.js</span><span class="chip">JavaScript</span><span class="chip">Python</span><span class="chip">openpyxl</span><span class="chip">SheetJS</span>
+      </div>
+    </div>
+  </div>
+  <div class="grid3">
+    <div class="card reveal">
+      <h3><svg class="ic"><use href="#i-spark"/></svg>Logarithms Artificial Intelligence</h3>
+      <div class="yr">2023 —</div>
+      <p>Sharpening people's technical and non-technical skills in AI through intensive, practical training.</p>
+    </div>
+    <div class="card reveal">
+      <h3><svg class="ic"><use href="#i-users"/></svg>Enhance Mind AI Conference</h3>
+      <div class="yr">2022 · dLab Co-ICT</div>
+      <p>Event exploring the fundamentals, advances and breakthroughs of artificial intelligence.</p>
+    </div>
+    <div class="card reveal">
+      <h3><svg class="ic"><use href="#i-office"/></svg>Hospital Management System</h3>
+      <div class="yr">2016 — 2018</div>
+      <p>Replaced manual hospital workflows: patient registration, records, and doctor–patient appointments.</p>
+    </div>
+  </div>
+</section>
+
+<section id="referees" class="reveal ref">
+  <div class="sec-head">
+    <span class="sic"><svg class="ic"><use href="#i-users"/></svg></span>
+    <div><span class="tag">06 · References</span><h2>Referees</h2></div>
+  </div>
+  <div class="grid3">
+    <div class="card reveal">
+      <span class="avatar"><svg class="ic"><use href="#i-user"/></svg></span>
+      <h3>James Pius</h3>
+      <div class="pos">Service Delivery Manager</div>
+      <div class="org2">SimbaNET Tanzania</div>
+      <a href="mailto:james.pius@simbanet.co.tz"><svg class="ic"><use href="#i-mail"/></svg>james.pius@simbanet.co.tz</a>
+      <span class="ph"><svg class="ic"><use href="#i-phone"/></svg>+255 715 123 185</span>
+    </div>
+    <div class="card reveal">
+      <span class="avatar"><svg class="ic"><use href="#i-user"/></svg></span>
+      <h3>John Mkinga</h3>
+      <div class="pos">Fiber Infrastructure Regional Manager</div>
+      <div class="org2">SimbaNET Tanzania</div>
+      <a href="mailto:john.mkinga@simbanet.co.tz"><svg class="ic"><use href="#i-mail"/></svg>john.mkinga@simbanet.co.tz</a>
+      <span class="ph"><svg class="ic"><use href="#i-phone"/></svg>+255 715 123 007</span>
+    </div>
+    <div class="card reveal">
+      <span class="avatar"><svg class="ic"><use href="#i-user"/></svg></span>
+      <h3>Henriko Trazias</h3>
+      <div class="pos">Fiber Infrastructure Regional Manager</div>
+      <div class="org2">SimbaNET Tanzania</div>
+      <a href="mailto:henriko.trazias@simbanet.co.tz"><svg class="ic"><use href="#i-mail"/></svg>henriko.trazias@simbanet.co.tz</a>
+      <span class="ph"><svg class="ic"><use href="#i-phone"/></svg>+255 715 123 063</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="contact" class="wrap">
+  <div class="card reveal">
+    <h2>Let's build reliable <span style="background:linear-gradient(92deg,var(--cyan),var(--magenta));-webkit-background-clip:text;background-clip:text;color:transparent">networks</span> together.</h2>
+    <p>Open to challenging telecommunications engineering roles — design, deployment, optimisation and service delivery.</p>
+    <div class="hero-actions" style="justify-content:center">
+      <a class="btn primary" href="mailto:kijuamkwayu@gmail.com"><svg class="ic"><use href="#i-mail"/></svg>kijuamkwayu@gmail.com</a>
+      <a class="btn" href="tel:+255715123070"><svg class="ic"><use href="#i-phone"/></svg>+255 715 123 070</a>
+      <a class="btn" href="https://github.com/salehesaid" target="_blank" rel="noopener"><svg class="ic"><use href="#i-github"/></svg>salehesaid</a>
+      <a class="btn" href="https://www.linkedin.com/in/SaleheSaidSalehe" target="_blank" rel="noopener"><svg class="ic"><use href="#i-linkedin"/></svg>SaleheSaidSalehe</a>
+    </div>
+    <p style="margin:26px 0 0;font-size:.85rem;color:var(--text-dim)"><svg class="ic"><use href="#i-phone"/></svg> Also reachable: +255 659 962 786 · +255 767 563 860 · +255 686 076 431</p>
+    <p style="margin:10px 0 0;font-size:.85rem"><svg class="ic" style="color:var(--cyan)"><use href="#i-pin"/></svg> Kigamboni, Dar es Salaam · Tanzania</p>
+  </div>
+  <div class="credit">© 2026 SALEHE (SAID) SALEHE</div>
+</footer>
+
+<script>
+// scroll reveal
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// skill bars
+const bo=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){
+  e.target.querySelectorAll('.bar i').forEach(i=>{i.style.width=i.dataset.w});bo.unobserve(e.target)}})},{threshold:.3});
+document.querySelectorAll('#skills .card').forEach(c=>bo.observe(c));
+
+// ---- liquid tab selection: sliding glass indicator + scroll spy ----
+const nav=document.querySelector('nav');
+const links=[...nav.querySelectorAll('a')];
+const ind=nav.querySelector('.indicator');
+function moveTo(link){
+  links.forEach(l=>l.classList.toggle('active',l===link));
+  ind.style.left=link.offsetLeft+'px';
+  ind.style.top=link.offsetTop+'px';
+  ind.style.width=link.offsetWidth+'px';
+  ind.style.height=link.offsetHeight+'px';
+  ind.style.opacity=1;
+}
+function currentActive(){return nav.querySelector('a.active')||links[0]}
+window.addEventListener('load',()=>moveTo(currentActive()));
+window.addEventListener('resize',()=>moveTo(currentActive()));
+let lockSpy=false;
+links.forEach(l=>l.addEventListener('click',()=>{
+  moveTo(l);lockSpy=true;setTimeout(()=>lockSpy=false,900);
+}));
+// scroll spy — nav follows the section in view
+const spyTargets=links.map(l=>document.querySelector(l.getAttribute('href'))).filter(Boolean);
+const spy=new IntersectionObserver(es=>{
+  if(lockSpy)return;
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      const link=links.find(l=>l.getAttribute('href')==='#'+e.target.id);
+      if(link)moveTo(link);
+    }
+  });
+},{rootMargin:'-40% 0px -55% 0px'});
+spyTargets.forEach(t=>spy.observe(t));
+
+// pointer parallax on blobs
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const b1=document.querySelector('.b1'),b2=document.querySelector('.b2');
+  addEventListener('pointermove',e=>{
+    const x=(e.clientX/innerWidth-.5),y=(e.clientY/innerHeight-.5);
+    b1.style.translate=`${x*30}px ${y*30}px`;
+    b2.style.translate=`${x*-40}px ${y*-40}px`;
+  },{passive:true});
+}
+</script>
+</body>
+</html>
