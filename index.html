@@ -188,11 +188,16 @@ h1 .paren{font-family:'Caveat',cursive;font-weight:500;font-size:1.15em;color:va
 .btn.primary{background:linear-gradient(120deg,rgba(92,232,255,.24),rgba(139,123,255,.24));border-color:rgba(92,232,255,.45)}
 
 /* fiber pulse line */
-.fiber{position:absolute;left:0;right:0;width:100%;bottom:0;height:120px;pointer-events:none;overflow:visible}
-.fiber path{fill:none;stroke:var(--fiber-track);stroke-width:1.5}
-.fiber .light{stroke:url(#fibgrad);stroke-width:2.5;stroke-dasharray:90 1200;animation:travel 6s linear infinite;filter:drop-shadow(0 0 8px rgba(92,232,255,.9))}
+.fiber{position:absolute;left:0;right:0;width:100%;bottom:8px;height:120px;pointer-events:none;overflow:visible}
+.fiber path,.divider path{fill:none;stroke:var(--fiber-track);stroke-width:1.5}
+.fiber .light,.divider .light{stroke:url(#fibgrad);stroke-width:2.5;stroke-dasharray:90 1200;animation:travel 6s linear infinite;filter:drop-shadow(0 0 8px rgba(92,232,255,.9))}
 @keyframes travel{to{stroke-dashoffset:-1290}}
 @media(max-height:560px),(max-width:480px){.fiber{display:none}}
+
+/* wave section divider */
+.divider{width:100%;height:56px;pointer-events:none;overflow:visible}
+.divider svg{display:block;width:100%;height:100%}
+@media(max-width:480px){.divider{height:38px}}
 
 /* ---------- sections ---------- */
 section{padding:72px 0;scroll-margin-top:90px}
@@ -330,6 +335,9 @@ footer p{color:var(--text-dim);margin:14px auto 30px;max-width:460px}
 <!-- SVG icon set -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
+    <linearGradient id="fibgrad" x1="0" x2="1">
+      <stop offset="0" stop-color="#5ce8ff"/><stop offset=".5" stop-color="#8b7bff"/><stop offset="1" stop-color="#ff7bd5"/>
+    </linearGradient>
     <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></symbol>
     <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></symbol>
     <symbol id="i-brief" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7"/><path d="M3 12h18"/></symbol>
@@ -378,10 +386,16 @@ footer p{color:var(--text-dim);margin:14px auto 30px;max-width:460px}
 </nav>
 
 <div class="scroll-content">
+<div class="divider wrap" aria-hidden="true">
+  <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+    <path d="M0,70 C180,20 320,110 500,60 C680,10 820,105 1000,55 C1090,32 1150,50 1200,45"/>
+    <path class="light" d="M0,70 C180,20 320,110 500,60 C680,10 820,105 1000,55 C1090,32 1150,50 1200,45"/>
+  </svg>
+</div>
 <header id="home" class="wrap">
   <h1>Salehe <span class="paren">(Said)</span> <span class="grad">Salehe</span></h1>
   <span class="eyebrow"><span class="dot"></span>Telecommunications Engineer</span>
-  <p class="tagline">I lead service delivery teams — directing partner dispatch, quality control and rapid response — pairing a telecom engineering foundation with data-driven decisions that keep operations on SLA.</p>
+  <p class="tagline">I currently lead service delivery operations, overseeing partner dispatch, quality control, and rapid field response to ensure consistent SLA performance. I work with a strong foundation in telecom engineering and FTTx operations, applying data-driven decision-making to optimize field execution, improve service reliability, and drive continuous operational improvement.</p>
   <div class="hero-actions">
     <a class="btn primary" href="mailto:kijuamkwayu@gmail.com"><svg class="ic"><use href="#i-mail"/></svg>Email me</a>
     <a class="btn" href="tel:+255715123070"><svg class="ic"><use href="#i-phone"/></svg>+255 715 123 070</a>
@@ -389,11 +403,6 @@ footer p{color:var(--text-dim);margin:14px auto 30px;max-width:460px}
     <a class="btn" href="https://www.linkedin.com/in/ss-said/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-linkedin"/></svg>LinkedIn</a>
   </div>
   <svg class="fiber" viewBox="0 0 1200 120" preserveAspectRatio="none" aria-hidden="true">
-    <defs>
-      <linearGradient id="fibgrad" x1="0" x2="1">
-        <stop offset="0" stop-color="#5ce8ff"/><stop offset=".5" stop-color="#8b7bff"/><stop offset="1" stop-color="#ff7bd5"/>
-      </linearGradient>
-    </defs>
     <path d="M0,70 C180,20 320,110 500,60 C680,10 820,105 1000,55 C1090,32 1150,50 1200,45"/>
     <path class="light" d="M0,70 C180,20 320,110 500,60 C680,10 820,105 1000,55 C1090,32 1150,50 1200,45"/>
   </svg>
@@ -413,10 +422,17 @@ footer p{color:var(--text-dim);margin:14px auto 30px;max-width:460px}
       <span class="chip"><svg class="ic"><use href="#i-pin"/></svg>Kigamboni, Dar es Salaam</span>
       <span class="chip"><svg class="ic"><use href="#i-globe"/></svg>English · Swahili</span>
       <span class="chip"><svg class="ic"><use href="#i-award"/></svg>JKT Certificate</span>
-      <span class="chip"><svg class="ic"><use href="#i-check"/></svg>Punctuality & work ethics</span>
+      <span class="chip"><svg class="ic"><use href="#i-check"/></svg>Punctuality & Work Ethics</span>
     </div>
   </div>
 </section>
+
+<div class="divider" aria-hidden="true">
+  <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+    <path d="M0,70 C180,20 320,110 500,60 C680,10 820,105 1000,55 C1090,32 1150,50 1200,45"/>
+    <path class="light" d="M0,70 C180,20 320,110 500,60 C680,10 820,105 1000,55 C1090,32 1150,50 1200,45"/>
+  </svg>
+</div>
 
 <section id="experience" class="reveal">
   <div class="sec-head">
@@ -466,6 +482,13 @@ footer p{color:var(--text-dim);margin:14px auto 30px;max-width:460px}
   </div>
 </section>
 
+<div class="divider" aria-hidden="true">
+  <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+    <path d="M0,70 C180,20 320,110 500,60 C680,10 820,105 1000,55 C1090,32 1150,50 1200,45"/>
+    <path class="light" d="M0,70 C180,20 320,110 500,60 C680,10 820,105 1000,55 C1090,32 1150,50 1200,45"/>
+  </svg>
+</div>
+
 <section id="education" class="reveal edu">
   <div class="sec-head">
     <span class="sic"><svg class="ic"><use href="#i-grad"/></svg></span>
@@ -494,6 +517,13 @@ footer p{color:var(--text-dim);margin:14px auto 30px;max-width:460px}
     </div>
   </div>
 </section>
+
+<div class="divider" aria-hidden="true">
+  <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+    <path d="M0,70 C180,20 320,110 500,60 C680,10 820,105 1000,55 C1090,32 1150,50 1200,45"/>
+    <path class="light" d="M0,70 C180,20 320,110 500,60 C680,10 820,105 1000,55 C1090,32 1150,50 1200,45"/>
+  </svg>
+</div>
 
 <section id="skills" class="reveal">
   <div class="sec-head">
@@ -527,6 +557,13 @@ footer p{color:var(--text-dim);margin:14px auto 30px;max-width:460px}
     </div>
   </div>
 </section>
+
+<div class="divider" aria-hidden="true">
+  <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+    <path d="M0,70 C180,20 320,110 500,60 C680,10 820,105 1000,55 C1090,32 1150,50 1200,45"/>
+    <path class="light" d="M0,70 C180,20 320,110 500,60 C680,10 820,105 1000,55 C1090,32 1150,50 1200,45"/>
+  </svg>
+</div>
 
 <section id="projects" class="reveal proj">
   <div class="sec-head">
@@ -577,6 +614,13 @@ footer p{color:var(--text-dim);margin:14px auto 30px;max-width:460px}
   </div>
 </section>
 
+<div class="divider" aria-hidden="true">
+  <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+    <path d="M0,70 C180,20 320,110 500,60 C680,10 820,105 1000,55 C1090,32 1150,50 1200,45"/>
+    <path class="light" d="M0,70 C180,20 320,110 500,60 C680,10 820,105 1000,55 C1090,32 1150,50 1200,45"/>
+  </svg>
+</div>
+
 <section id="referees" class="reveal ref">
   <div class="sec-head">
     <span class="sic"><svg class="ic"><use href="#i-users"/></svg></span>
@@ -611,6 +655,13 @@ footer p{color:var(--text-dim);margin:14px auto 30px;max-width:460px}
 </section>
 
 </main>
+
+<div class="divider wrap" aria-hidden="true">
+  <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+    <path d="M0,70 C180,20 320,110 500,60 C680,10 820,105 1000,55 C1090,32 1150,50 1200,45"/>
+    <path class="light" d="M0,70 C180,20 320,110 500,60 C680,10 820,105 1000,55 C1090,32 1150,50 1200,45"/>
+  </svg>
+</div>
 
 <footer id="contact" class="wrap">
   <div class="card reveal">
