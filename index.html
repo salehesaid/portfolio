@@ -6,7 +6,7 @@
 <title>Salehe (Said) Salehe — Telecommunications Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Caveat:wght@500;600;700&family=Google+Sans+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Caveat:wght@500;600;700&family=Google+Sans+Code:wght@400;500;600;700&family=Alkatra:wght@400;500;600&display=swap" rel="stylesheet">
 <script>try{if(localStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light')}catch(e){}</script>
 <style>
 :root{
@@ -170,7 +170,7 @@ header.wrap{min-height:100svh;display:flex;flex-direction:column;justify-content
 h1{font-family:'Open Sans',sans-serif;font-weight:800;font-size:clamp(1.4rem,6.6vw,4.4rem);line-height:1.08;letter-spacing:-.02em}
 h1 .grad{background:linear-gradient(92deg,var(--cyan) 0%,var(--violet) 55%,var(--magenta) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
 h1 .paren{font-family:'Caveat',cursive;font-weight:500;font-size:1.15em;color:var(--text-dim);-webkit-text-fill-color:var(--text-dim)}
-.tagline{font-size:clamp(1rem,2.2vw,1.25rem);color:var(--text-dim);max-width:620px;margin:22px auto 0}
+.tagline{font-family:'Alkatra',cursive;font-size:clamp(1rem,2.2vw,1.25rem);line-height:1.65;color:var(--text-dim);max-width:620px;margin:26px auto 10px}
 .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px;justify-content:center}
 .btn{
   display:inline-flex;align-items:center;gap:9px;padding:13px 24px;border-radius:999px;
@@ -192,7 +192,7 @@ h1 .paren{font-family:'Caveat',cursive;font-weight:500;font-size:1.15em;color:va
 .fiber path,.divider path{fill:none;stroke:var(--fiber-track);stroke-width:1.5}
 .fiber .light,.divider .light{stroke:url(#fibgrad);stroke-width:2.5;stroke-dasharray:90 1200;animation:travel 6s linear infinite;filter:drop-shadow(0 0 8px rgba(92,232,255,.9))}
 @keyframes travel{to{stroke-dashoffset:-1290}}
-@media(max-height:560px),(max-width:480px){.fiber{display:none}}
+@media(max-height:820px),(max-width:480px){.fiber{display:none}}
 
 /* wave section divider */
 .divider{width:100%;height:56px;pointer-events:none;overflow:visible}
@@ -307,6 +307,8 @@ footer.wrap{padding:90px 0 60px;text-align:center;scroll-margin-top:90px}
 footer .card{padding:52px 34px}
 footer h2{font-family:'Open Sans',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;letter-spacing:-.01em}
 footer p{color:var(--text-dim);margin:14px auto 30px;max-width:460px}
+.contact-extra{text-align:center;max-width:none}
+@media(min-width:700px){.contact-extra{white-space:nowrap}}
 .credit{margin-top:44px;font-family:'Google Sans Code',monospace;font-size:.7rem;color:var(--credit);letter-spacing:.12em}
 
 /* reveal on scroll */
@@ -587,7 +589,7 @@ footer p{color:var(--text-dim);margin:14px auto 30px;max-width:460px}
       <div style="margin-bottom:12px">
         <span class="chip" style="border-color:rgba(139,123,255,.5);color:var(--violet)"><svg class="ic"><use href="#i-spark"/></svg>Currently working on</span>
       </div>
-      <h3><svg class="ic"><use href="#i-chart"/></svg>Wananchi Cable Tanzania — Data Analysis System</h3>
+      <h3><svg class="ic"><use href="#i-chart"/></svg>FTTx Service Delivery — Analytics System</h3>
       <div class="yr">2026 · v1.1 · Analytics hub</div>
       <p>Centralized analytics hub for B2C (Zuku Fiber) and B2B (SimbaNET) operations: SLA performance, CRM complaints, maintenance incidents, quality control, root-cause analysis and B2B service delivery — interactive dashboards with global filters, weekly KPIs and an automated Python data-embedding pipeline from Excel/PPTX sources.</p>
       <div class="quick" style="margin-top:14px">
@@ -673,8 +675,8 @@ footer p{color:var(--text-dim);margin:14px auto 30px;max-width:460px}
       <a class="btn" href="https://github.com/salehesaid" target="_blank" rel="noopener"><svg class="ic"><use href="#i-github"/></svg>salehesaid</a>
       <a class="btn" href="https://www.linkedin.com/in/SaleheSaidSalehe" target="_blank" rel="noopener"><svg class="ic"><use href="#i-linkedin"/></svg>SaleheSaidSalehe</a>
     </div>
-    <p style="margin:26px 0 0;font-size:.85rem;color:var(--text-dim)"><svg class="ic"><use href="#i-phone"/></svg> Also reachable: +255 659 962 786 · +255 767 563 860 · +255 686 076 431</p>
-    <p style="margin:10px 0 0;font-size:.85rem"><svg class="ic" style="color:var(--cyan)"><use href="#i-pin"/></svg> Kigamboni, Dar es Salaam · Tanzania</p>
+    <p class="contact-extra" style="margin:26px 0 0;font-size:.85rem;color:var(--text-dim)"><svg class="ic"><use href="#i-phone"/></svg> Also reachable: +255 659 962 786 · +255 767 563 860 · +255 686 076 431</p>
+    <p class="contact-extra" style="margin:10px 0 0;font-size:.85rem"><svg class="ic" style="color:var(--cyan)"><use href="#i-pin"/></svg> Kigamboni, Dar es Salaam · Tanzania</p>
   </div>
   <div class="credit">© 2026 SALEHE (SAID) SALEHE</div>
 </footer>
