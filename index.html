@@ -104,7 +104,7 @@ svg.ic.fill{fill:currentColor;stroke:none}
   overflow:hidden;
   transition:background .4s,box-shadow .4s;
 }
-nav.glassy{position:fixed}
+nav.glassy{position:fixed;background:linear-gradient(160deg,var(--glass-3),var(--glass-2) 50%,var(--glass-2))}
 .glassy::after{ /* top specular strip like real glass catching light */
   content:"";position:absolute;left:8%;right:8%;top:0;height:1.5px;
   background:linear-gradient(90deg,transparent,var(--specular),transparent);
@@ -146,13 +146,23 @@ nav .theme-btn svg.ic{font-size:1.05rem}
 nav .theme-btn .ic-moon{display:none}
 [data-theme="light"] nav .theme-btn .ic-sun{display:none}
 [data-theme="light"] nav .theme-btn .ic-moon{display:inline-flex}
-@media(max-width:760px){nav a{font-size:.72rem;padding:7px 10px;gap:5px}nav a svg.ic{font-size:.95rem}}
+@media(max-width:760px){
+  nav a{font-size:.72rem;padding:7px 10px;gap:5px}
+  nav a svg.ic{font-size:.95rem}
+  nav{top:auto;bottom:calc(12px + env(safe-area-inset-bottom));}
+}
 @media(max-width:420px){nav a{font-size:.66rem;padding:6px 8px}}
 
 .wrap{max-width:1060px;margin:0 auto;padding:0 22px}
 
+/* ---------- liquid smooth-scroll ---------- */
+.scroll-content{will-change:transform}
+html.liquid-scroll{scroll-behavior:auto}
+html.liquid-scroll .scroll-content{position:fixed;top:0;left:0;width:100%;backface-visibility:hidden}
+
 /* ---------- hero ---------- */
-header{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;padding:130px 0 80px}
+header.wrap{min-height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;padding:130px 0 80px}
+@media(max-width:760px){header.wrap{padding:56px 0 80px}}
 .eyebrow{font-family:'Caveat',cursive;font-size:clamp(1.3rem,3.4vw,1.8rem);font-weight:600;letter-spacing:.01em;color:var(--cyan);display:inline-flex;align-items:center;gap:10px;margin:14px 0 6px}
 .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:pulse 2.2s infinite}
 @keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.5}}
@@ -177,7 +187,7 @@ h1 .paren{font-family:'Caveat',cursive;font-weight:500;font-size:1.15em;color:va
 .btn.primary{background:linear-gradient(120deg,rgba(92,232,255,.24),rgba(139,123,255,.24));border-color:rgba(92,232,255,.45)}
 
 /* fiber pulse line */
-.fiber{position:absolute;left:0;right:0;width:100%;bottom:8%;height:120px;pointer-events:none;overflow:visible}
+.fiber{position:absolute;left:0;right:0;width:100%;bottom:0;height:120px;pointer-events:none;overflow:visible}
 .fiber path{fill:none;stroke:var(--fiber-track);stroke-width:1.5}
 .fiber .light{stroke:url(#fibgrad);stroke-width:2.5;stroke-dasharray:90 1200;animation:travel 6s linear infinite;filter:drop-shadow(0 0 8px rgba(92,232,255,.9))}
 @keyframes travel{to{stroke-dashoffset:-1290}}
@@ -287,8 +297,8 @@ section{padding:72px 0;scroll-margin-top:90px}
 .ref .ph svg.ic{color:var(--violet)}
 
 /* contact / footer */
-footer{padding:90px 0 60px;text-align:center;scroll-margin-top:90px}
-footer .card{max-width:680px;margin:0 auto;padding:52px 34px}
+footer.wrap{padding:90px 0 60px;text-align:center;scroll-margin-top:90px}
+footer .card{padding:52px 34px}
 footer h2{font-family:'Open Sans',sans-serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:800;letter-spacing:-.01em}
 footer p{color:var(--text-dim);margin:14px auto 30px;max-width:460px}
 .credit{margin-top:44px;font-family:'Google Sans Code',monospace;font-size:.7rem;color:var(--credit);letter-spacing:.12em}
@@ -300,6 +310,9 @@ footer p{color:var(--text-dim);margin:14px auto 30px;max-width:460px}
 @media(max-width:640px){
   nav{max-width:calc(100% - 20px)}
   .card{padding:24px}
+}
+@media(max-width:760px){
+  footer.wrap{padding-bottom:calc(60px + 160px + env(safe-area-inset-bottom))}
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important}
@@ -343,6 +356,7 @@ footer p{color:var(--text-dim);margin:14px auto 30px;max-width:460px}
     <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18V5.5L20 3v12.5"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="15.5" r="2.5"/></symbol>
     <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.1 5.1l2.1 2.1M16.8 16.8l2.1 2.1M18.9 5.1l-2.1 2.1M7.2 16.8l-2.1 2.1"/></symbol>
     <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5z"/></symbol>
+    <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1.5"/><circle cx="12" cy="12" r="2"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></symbol>
   </defs>
 </svg>
 
@@ -362,6 +376,7 @@ footer p{color:var(--text-dim);margin:14px auto 30px;max-width:460px}
   </button>
 </nav>
 
+<div class="scroll-content">
 <header id="home" class="wrap">
   <h1>Salehe <span class="paren">(Said)</span> <span class="grad">Salehe</span></h1>
   <span class="eyebrow"><span class="dot"></span>Telecommunications Engineer</span>
@@ -491,6 +506,9 @@ footer p{color:var(--text-dim);margin:14px auto 30px;max-width:460px}
       <div class="skill-row"><div class="lab"><span><svg class="ic"><use href="#i-chart"/></svg>Data Analysis</span><span>90%</span></div><div class="bar"><i data-w="90%"></i></div></div>
       <div class="skill-row"><div class="lab"><span><svg class="ic"><use href="#i-office"/></svg>Microsoft Office</span><span>92%</span></div><div class="bar"><i data-w="92%"></i></div></div>
       <div class="skill-row"><div class="lab"><span><svg class="ic"><use href="#i-code"/></svg>Programming</span><span>80%</span></div><div class="bar"><i data-w="80%"></i></div></div>
+      <div class="skill-row"><div class="lab"><span><svg class="ic"><use href="#i-cpu"/></svg>AI-Assisted Development</span><span>90%</span></div><div class="bar"><i data-w="90%"></i></div></div>
+      <div class="skill-row"><div class="lab"><span><svg class="ic"><use href="#i-cpu"/></svg>Prompt Engineering</span><span>92%</span></div><div class="bar"><i data-w="92%"></i></div></div>
+      <div class="skill-row"><div class="lab"><span><svg class="ic"><use href="#i-chart"/></svg>Power BI Dashboards</span><span>88%</span></div><div class="bar"><i data-w="88%"></i></div></div>
       <div class="skill-row"><div class="lab"><span><svg class="ic"><use href="#i-pen"/></svg>Graphic Design</span><span>78%</span></div><div class="bar"><i data-w="78%"></i></div></div>
       <div class="skill-row" style="margin-bottom:0"><div class="lab"><span><svg class="ic"><use href="#i-lead"/></svg>Leadership & Multitasking</span><span>88%</span></div><div class="bar"><i data-w="88%"></i></div></div>
     </div>
@@ -501,6 +519,7 @@ footer p{color:var(--text-dim);margin:14px auto 30px;max-width:460px}
       </div>
       <p style="text-align:center;color:var(--text-dim);font-size:.85rem;margin-top:22px">Excellent spoken & written English · Native-level Swahili</p>
       <div class="quick" style="justify-content:center;margin-top:18px">
+        <span class="chip"><svg class="ic"><use href="#i-cpu"/></svg>Interacting with AI</span>
         <span class="chip"><svg class="ic"><use href="#i-music"/></svg>Music</span>
         <span class="chip"><svg class="ic"><use href="#i-gamepad"/></svg>Video games</span>
         <span class="chip"><svg class="ic"><use href="#i-globe"/></svg>Internet & movies</span>
@@ -608,8 +627,42 @@ footer p{color:var(--text-dim);margin:14px auto 30px;max-width:460px}
   </div>
   <div class="credit">© 2026 SALEHE (SAID) SALEHE</div>
 </footer>
+</div>
 
 <script>
+// ---- liquid smooth scroll: real scroll drives a lerped transform ----
+let liquidScrollTo=null;
+(function(){
+  const sc=document.querySelector('.scroll-content');
+  if(!sc||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  document.documentElement.classList.add('liquid-scroll');
+  function setHeight(){document.body.style.height=sc.offsetHeight+'px'}
+  setHeight();
+  if('ResizeObserver' in window)new ResizeObserver(setHeight).observe(sc);
+  addEventListener('resize',setHeight);
+  addEventListener('load',setHeight);
+  let current=window.scrollY,target=current,lastT=performance.now();
+  const tau=160; // ms time-constant, frame-rate independent easing
+  function raf(now){
+    const dt=now-lastT;lastT=now;
+    target=window.scrollY;
+    current=target+(current-target)*Math.exp(-dt/tau);
+    if(Math.abs(target-current)<.05)current=target;
+    sc.style.transform=`translate3d(0,${-current}px,0)`;
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+  // native anchor-jump can't locate elements inside the fixed/transformed
+  // wrapper, so nav clicks resolve the target's real flow offset by hand
+  liquidScrollTo=function(el){
+    let y=0,node=el;
+    while(node&&node!==sc){y+=node.offsetTop||0;node=node.offsetParent}
+    const margin=parseFloat(getComputedStyle(el).scrollMarginTop)||0;
+    const max=sc.offsetHeight-innerHeight;
+    window.scrollTo(0,Math.max(0,Math.min(y-margin,max)));
+  };
+})();
+
 // scroll reveal
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
@@ -643,8 +696,12 @@ function currentActive(){return nav.querySelector('a.active')||links[0]}
 window.addEventListener('load',()=>moveTo(currentActive()));
 window.addEventListener('resize',()=>moveTo(currentActive()));
 let lockSpy=false;
-links.forEach(l=>l.addEventListener('click',()=>{
+links.forEach(l=>l.addEventListener('click',e=>{
   moveTo(l);lockSpy=true;setTimeout(()=>lockSpy=false,900);
+  if(liquidScrollTo){
+    const targetEl=document.querySelector(l.getAttribute('href'));
+    if(targetEl){e.preventDefault();liquidScrollTo(targetEl)}
+  }
 }));
 // scroll spy — nav follows the section in view
 const spyTargets=links.map(l=>document.querySelector(l.getAttribute('href'))).filter(Boolean);
